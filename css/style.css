@@ -1,0 +1,115 @@
+html {
+    text-shadow: #000000 0px 0px 3px;
+    background-attachment: fixed;
+    background-image: linear-gradient(0deg, #000000, #121212);
+    color: #FFFFFF;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.def {
+    display: flex;
+
+    &p {
+        padding: 5px;
+    }
+}
+
+.center {
+    text-align: center;
+}
+
+.just {
+    text-align: justify;
+}
+
+.simples {
+    text-decoration: none;
+    color: white;
+}
+
+img, video {
+    max-width: 70%;
+    margin-left: 50%;
+    transform: translate(-50%, 0);
+}
+
+table:has(a) {
+    background-color: #121212;
+    top: 0;
+    right: 0;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+}
+
+td a {
+    box-shadow: #000000 0px 0px 10px;
+    
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: block;
+    font-weight: bold;
+    border-style: none;
+    color: #FFFFFF;
+    background-color: #332940;
+}
+
+td a:hover {
+    color: #999999;
+    cursor: pointer;
+}
+
+div.caixa {
+    width: 70%;
+    box-shadow: #000000 0px 0px 10px;
+    margin: auto;
+    border-radius: 10px;
+    padding: 20px;
+    display: block;
+    background-color: hsl(270, 0%, 12%);
+}
+
+div.caixa div.caixa {
+    width: 92%;
+}
+
+h2, div.o {
+    border-left: solid 5px;
+    border-radius: 2px;
+    padding-left: 10px;
+    transition: .1s ease-in-out;
+
+    &:hover {
+        padding-left: 20px;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+line {
+    border-top: solid 1px;
+}
+
+resp {
+    border-color: rgb(0, 148, 74);
+    border-bottom-color: lime;
+    padding: 5px;
+    border-width: 2px;
+    border-bottom-width: 3px;
+    border-style: solid;
+    border-radius: 5px;
+}
+
+red {color: red}
+orange {color: orange}
+yellow {color: yellow}
+lime {color: lime}
+green {color: green}
+blue {color: blue}
+purple {color: purple}
+magenta {color: magenta}
+white {color: white}
+grey {color: grey}
+black {color: black}
+pink {color: pink}
+lightblue {color: lightblue}
