@@ -1,193 +1,137 @@
-const conteudo = {
-    titulo: 0,
-    entendimento: 1,
-    ensino: 2,
-    exemplos: 3,
-    aprendizado: 4,
-    estudo: 5,
-}
+const sup = n => `<sup>${n}</sup>`;
+const sub = n => `<sub>${n}</sub>`;
+const frac = (a, b) => `${sup(a)}/${sub(b)}`;
+const hexToRGB = (hex) => {
+    const bigint = parseInt(hex.replace('#', ''), 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+    return `${r}, ${g}, ${b}`;
+};
 
-link = (link) => "<a target=_blank href=" + link + ">" + link + "</a>";
-sup = (n) => `<sup>${n}</sup>`;
-sub = (n) => `<sub>${n}</sub>`;
-frac = (a, b) => sup(a) + "/" + sub(b);
-line = (s) => `<line>${s}</line>`
+const el = (tag, props = {}, ...children) => {
+    const e = document.createElement(tag);
+    for (const [k, v] of Object.entries(props)) {
+        if (k === 'style') {
+            Object.assign(e.style, v);
+        } else if (k === 'attrs') {
+            for (const [a, val] of Object.entries(v)) {
+                e.setAttribute(a, val);
+            }
+        } else {
+            e[k] = v;
+        }
+    }
+    for (const c of children) {
+        if (c != null) {
+            e.append(typeof c === 'string' ? document.createTextNode(c) : c);
+        }
+    }
+    return e;
+};
 
-const centro = `style="margin-left: 50%; transform: translate(-50%, 0)"`;
-
-const enunciados = ["",
-    "O que entendi do assunto?",
-    "Como posso ensinar alguém?",
-    "Quais exemplos podem ilustrar minhas explicações?",
-    "O que não entendi do assunto?",
-    "Como estudo?",
+const contents = [
+    {
+        title: "Geometria Espacial",
+        color: "#EF5350",
+        icon: "icons/teto.png",
+        topics: [[
+            "O que entendi do assunto?",
+            ""
+        ], [
+            "Como posso ensinar alguém?",
+            ""
+        ], [
+            "Quais exemplos podem ilustrar minhas explicações?",
+            ""
+        ], [
+            "O que não entendi do assunto?",
+            ""
+        ], [
+            "Como estudo?",
+            ""
+        ]]
+    }, {
+        title: "Geometria Analítica",
+        color: "#86CECB",
+        icon: "icons/miku.png",
+        topics: [[
+            "O que entendi do assunto?",
+            ""
+        ], [
+            "Como posso ensinar alguém?",
+            ""
+        ], [
+            "Quais exemplos podem ilustrar minhas explicações?",
+            ""
+        ], [
+            "O que não entendi do assunto?",
+            ""
+        ], [
+            "Como estudo?",
+            ""
+        ]]
+    }, {
+        title: "Conclusão",
+        icon: "icons/neru.png",
+        color: "#FFD543",
+        topics: [[
+            "Entendimento",
+            ""
+        ], [
+            "Desempenho",
+            ""
+        ], [
+            "Comportamento",
+            ""
+        ]]
+    }, {
+        title: "Isenção de responsabilidade", 
+        icon: "icons/luka.png", 
+        color: "#EA9999",
+        topics: [[
+            "Sobre os conteúdos",
+            "Momentos em que não é citado a fonte externa, são onde o material foi retirado dos conteúdos repassados pela professora durante as aulas."
+        ]]
+    }
 ];
 
-class Conteudo {
-    constructor(titulo, color, icone, entendimento, ensino, exemplos, aprendizado, estudo) {
-        this.icone = icone;
-        this.titulo = titulo;
-        this.color = color;
-        this.entendimento = entendimento;
-        this.ensino = ensino;
-        this.exemplos = exemplos;
-        this.aprendizado = aprendizado;
-        this.estudo = estudo;
-    }
+const explore = el('div', {className: 'box' }, el('h1', {}, 'Explorar Conteúdos:'));
+explore.style.border = `2px solid`;
+for (const c of contents) {
+    const a = el('a', { className: 'o', href: '#' + c.title });
+    a.style.color = c.color;
+    a.innerHTML = `<h3>${c.title}</h3>`;
+    explore.appendChild(a);
 }
+document.body.appendChild(explore);
 
-conteudos = [
-    new Conteudo("Geometria Espacial", "#EF5350", "icons/teto.png",
-        ``,
-        ``,
-        ``,
-        ``,
-        ``
-    ),
-    new Conteudo("Geometria Analítica", "#86cecb", "icons/miku.png",
-        ``,
-        ``,
-        ``,
-        ``,
-        ``,
-    ),
-    new Conteudo("Conclusão", "", "icons/neru.png",
-        `A`,
-    )
-];
+for (const c of contents) {
+    document.body.appendChild(document.createElement('br')).setAttribute('id', c.title);
 
-muchoTexto = (texto) => texto.replaceAll("\\n", "").replaceAll("\n", "<br>");
+    const box = el('div', { className: 'box' });
 
-pulaLinha = function (d) {
-    d.appendChild(document.createElement("br"));
-}
+    box.style.border = `2px solid ${c.color}`;
+    box.style.backgroundImage = `linear-gradient(0deg, rgba(${hexToRGB(c.color)}, .1), rgba(255, 255, 255, .05))`;
+    box.style.backgroundBlendMode = 'overlay, difference';
+    box.style.color = c.color;
 
-icon = function (name) {
-    return "<img src=" + name + ">";
-}
+    box.appendChild(el('h1', { className: 'center' }, c.title));
 
-novoEnunciado = function (enunciado) {
-    temp = document.createElement("h2");
-    temp.innerHTML = enunciado;
-    return temp;
-}
+    const img = el('img', {});
+    img.src = c.icon;
+    img.style.width = '80px';
+    box.appendChild(img);
 
-novaExplica = function (exp) {
-    temp = document.createElement("p");
-    temp.style.textAlign = "justify";
-    temp.innerHTML = exp;
-    return temp;
-}
-
-inserirConteudo = function (elemento) {
-    div = document.createElement("div");
-    div.setAttribute("class", "caixa");
-    div.style.backgroundImage = "linear-gradient(0deg," + elemento.color + ", #747474ff)";
-    div.style.backgroundBlendMode = "overlay, difference";
-    div.style.width = "700px;";
-    div.style.color = elemento.color;
-    title = document.createElement("h1");
-    title.setAttribute("id", elemento.titulo);
-    title.innerHTML = elemento.titulo;
-    title.setAttribute("class", "center");
-    div.appendChild(title);
-
-    icon = document.createElement("img");
-    icon.setAttribute("src", elemento.icone);
-    icon.style.width = "80px";
-    div.appendChild(icon);
-
-    a = elemento.entendimento;
-    if (a != undefined) {
-        div.appendChild(novoEnunciado(enunciados[conteudo.entendimento]));
-        div.appendChild(novaExplica(muchoTexto(a)));
-        pulaLinha(div);
+    for (const [q, aText] of (c.topics || [])) {
+        box.appendChild(el('h2', {}, q));
+        const p = el('p', {});
+        p.style.textAlign = 'justify';
+        p.innerHTML = (aText || '').replace(/\r?\n/g, '<br>');
+        box.appendChild(p);
+        box.appendChild(document.createElement('br'));
     }
 
-
-    a = elemento.ensino;
-    if (a != undefined) {
-        div.appendChild(novoEnunciado(enunciados[conteudo.ensino]));
-        div.appendChild(novaExplica(muchoTexto(a)));
-        pulaLinha(div);
-    }
-
-    a = elemento.exemplos;
-    if (a != undefined) {
-        div.appendChild(novoEnunciado(enunciados[conteudo.exemplos]));
-        div.appendChild(novaExplica(muchoTexto(a)));
-        pulaLinha(div);
-    }
-
-    a = elemento.aprendizado;
-    if (a != undefined) {
-        div.appendChild(novoEnunciado(enunciados[conteudo.aprendizado]));
-        div.appendChild(novaExplica(muchoTexto(a)));
-        pulaLinha(div);
-    }
-
-    a = elemento.estudo;
-    if (a != undefined) {
-        div.appendChild(novoEnunciado(enunciados[conteudo.estudo]));
-        div.appendChild(novaExplica(muchoTexto(a)));
-    }
-    document.body.appendChild(div);
-    pulaLinha(document.body);
+    document.body.appendChild(box);
 }
-
-explorar = document.createElement("div");
-explorar.setAttribute("class", "caixa");
-exploraTit = document.createElement("h1");
-exploraTit.innerHTML = "Explorar Conteúdos:";
-explorar.appendChild(exploraTit);
-insereExplora = function (e) {
-    tit = e.titulo;
-    if (tit == undefined) return;
-    a = document.createElement("a");
-    a.setAttribute("class", "simples");
-    a.setAttribute("href", "#" + tit);
-    a.innerHTML = "<h3>" + tit + "</h3>";
-    explorar.appendChild(a);
-}
-conteudos.forEach(e => insereExplora(e));
-document.body.appendChild(explorar);
-
-pulaLinha(document.body);
-
-conteudos.forEach(e => inserirConteudo(e));
-
-conclusao = document.createElement("div");
-conclusao.setAttribute("class", "caixa");
-conclusaoTit = document.createElement("h1");
-conclusaoTit.setAttribute("class", "center");
-conclusaoTit.innerHTML = "Conclusão / Auto avaliação";
-conclusaoText = document.createElement("h3");
-conclusaoText.style.textAlign = "justify";
-conclusaoText.innerHTML = muchoTexto(`Crio que subestimei um pouco o conteúdo, dado que já tenho conhecimento prévio considerável. Não acredito que tenha sido algo aconselhável ou correto.
-    
-    Não contribui muito nas aulas e realizei boa parte das questões somente em casa.
-    
-    Por parte da turma, notei falta de interesse no assunto, o que acabou refletindo nas notas.
-    
-    O conteúdo de geometria plana é algo de grande interesse meu, considero um dos conteúdos mais divertidos da matemática.
-    
-    Além disso, gostei muito das questões propostas pela professora e das explicações.
-    
-    Considero esse um dos melhores trimestres até agora.`);
-conclusao.appendChild(conclusaoTit);
-conclusao.appendChild(conclusaoText);
-document.body.appendChild(conclusao);
-
-pulaLinha(document.body);
-
-disclaimer = document.createElement("div");
-disclaimer.setAttribute("class", "caixa");
-disclaimerTit = document.createElement("h1");
-disclaimerTit.setAttribute("class", "center");
-disclaimerTit.innerHTML = "Isenção de responsabilidade";
-disclaimerText = document.createElement("h3");
-disclaimerText.style.textAlign = "justify";
-disclaimerText.innerHTML = muchoTexto(`Momentos em que não é citado a fonte externa, são onde o material foi retirado dos conteúdos repassados pela professora durante as aulas.`);
-disclaimer.appendChild(disclaimerTit);
-disclaimer.appendChild(disclaimerText);
-document.body.appendChild(disclaimer);
+document.body.appendChild(document.createElement('br'));

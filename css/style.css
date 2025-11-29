@@ -1,7 +1,9 @@
 html {
     text-shadow: #000000 0px 0px 3px;
+    background-image: url("../images/bg.png");
     background-attachment: fixed;
-    background-image: linear-gradient(0deg, #000000, #121212);
+    background-size: contain;
+    background-repeat: repeat-x;
     color: #FFFFFF;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -22,12 +24,13 @@ html {
     text-align: justify;
 }
 
-.simples {
+.simple {
     text-decoration: none;
     color: white;
 }
 
-img, video {
+img,
+video {
     max-width: 70%;
     margin-left: 50%;
     transform: translate(-50%, 0);
@@ -44,7 +47,7 @@ table:has(a) {
 
 td a {
     box-shadow: #000000 0px 0px 10px;
-    
+
     padding: 10px;
     border-radius: 5px;
     text-decoration: none;
@@ -60,21 +63,24 @@ td a:hover {
     cursor: pointer;
 }
 
-div.caixa {
+div.box {
     width: 70%;
     box-shadow: #000000 0px 0px 10px;
     margin: auto;
     border-radius: 10px;
     padding: 20px;
     display: block;
-    background-color: hsl(270, 0%, 12%);
+    background-color: rgb(255, 255, 255, .05);
 }
 
-div.caixa div.caixa {
+div.box div.box {
     width: 92%;
 }
 
-h2, div.o {
+h2,
+.o {
+    text-decoration: none;
+    display: block;
     border-left: solid 5px;
     border-radius: 2px;
     padding-left: 10px;
@@ -100,16 +106,54 @@ resp {
     border-radius: 5px;
 }
 
-red {color: red}
-orange {color: orange}
-yellow {color: yellow}
-lime {color: lime}
-green {color: green}
-blue {color: blue}
-purple {color: purple}
-magenta {color: magenta}
-white {color: white}
-grey {color: grey}
-black {color: black}
-pink {color: pink}
-lightblue {color: lightblue}
+red {
+    color: red
+}
+
+orange {
+    color: orange
+}
+
+yellow {
+    color: yellow
+}
+
+lime {
+    color: lime
+}
+
+green {
+    color: green
+}
+
+blue {
+    color: blue
+}
+
+purple {
+    color: purple
+}
+
+magenta {
+    color: magenta
+}
+
+white {
+    color: white
+}
+
+grey {
+    color: grey
+}
+
+black {
+    color: black
+}
+
+pink {
+    color: pink
+}
+
+lightblue {
+    color: lightblue
+}
