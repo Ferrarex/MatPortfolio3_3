@@ -29,11 +29,11 @@ html {
     color: white;
 }
 
-img,
+img:not(.ignore),
 video {
     max-width: 70%;
     margin-left: 50%;
-    transform: translate(-50%, 0);
+    transform: translateX(-50%);
 }
 
 table:has(a) {
